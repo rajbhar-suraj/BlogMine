@@ -11,13 +11,14 @@ const connectDb = require('./config/db')
 dotenv.config()
 connectDb()
 const app = express()
-app.use(express.json()); // ⬅️ This is required for JSON body parsing
 app.use(express.urlencoded({ extended: true })); 
 app.use(cookieParser())
 app.use(cors({
     origin: ['http://localhost:5173', 'https://blog-mine-three.vercel.app'],
     credentials : true
 }))
+app.use(express.json()); // ⬅️ This is required for JSON body parsing
+
 
 app.use('/uploads', express.static('uploads'));
 

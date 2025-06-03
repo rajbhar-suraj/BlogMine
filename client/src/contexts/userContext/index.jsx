@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
 import toast from 'react-hot-toast';
+const API = import.meta.env.VITE_API_URL;
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    const API = import.meta.env.VITE_API_URL;
 
 
     const getUser = async () => {
