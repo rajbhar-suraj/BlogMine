@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
-import { useBlogContext } from '../blogContext/BlogContext';
 import toast from 'react-hot-toast';
 
 export const AuthProvider = ({ children }) => {
@@ -62,7 +61,7 @@ export const AuthProvider = ({ children }) => {
             toast.success('Logged in successfully!');
         } catch (err) {
           console.log(err);
-          toast.error(err.response?.data?.message || 'Login failed');
+          toast.error(err.response?.data?.message);
         }
     }
 
