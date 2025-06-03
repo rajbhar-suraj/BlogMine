@@ -5,7 +5,14 @@ import { useAuthContext } from '../contexts/userContext/AuthContext';
 
 const AuthForm = ({ formControls }) => {
 
-    const [formData, setFormData] = useState({})
+    // const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState(() => {
+        const initialState = {};
+        formControls.forEach(ctrl => {
+          initialState[ctrl.name] = '';
+        });
+        return initialState;
+      });
     const location = useLocation()
     const { registerUser, loginUser, user } = useAuthContext()
     const isRegisterPage = location.pathname === '/auth/register'
@@ -23,13 +30,15 @@ const AuthForm = ({ formControls }) => {
             navigate('/auth/login')
 
         } else {
-
             await loginUser( formData )
-            if (user) {
-                navigate('/auth/blog/dashboard')
-            }
         }
     }
+    useEffect(() => {
+        if (user) {
+          navigate('/auth/blog/dashboard');
+        }
+      }, [user, navigate]);
+      
 
     return (
         <div className='bg-black min-h-screen flex flex-col md:flex-row'>
@@ -45,7 +54,7 @@ const AuthForm = ({ formControls }) => {
         <form onSubmit={submitHandler} className='bg-white w-full md:w-1/2 flex justify-center items-center p-6'>
             <div className='w-full max-w-md space-y-4'>
                 <h1 className="text-2xl md:text-3xl text-center font-bold tracking-tight text-foreground">
-                    {isRegisterPage ? 'Sign in to your account' : 'Create new account'}
+                {isRegisterPage ? 'Create a new account' : 'Sign in to your account'}
                 </h1>
                 <p className="text-center text-sm md:text-base">
                     {isRegisterPage ? 'Already have an account?' : "Don't have an account?"}

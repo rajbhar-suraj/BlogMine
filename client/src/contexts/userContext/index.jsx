@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
             toast.success('Registration successful!');
 
         } catch (error) {
-            toast.error(err.response?.data?.message || 'Registration failed');
+            toast.error(error.response?.data?.message || 'Registration failed');
         }
     }
 
@@ -53,11 +53,11 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const loginUser = async ( formData ) => {
+    const loginUser = async (formData) => {
         try {
-            const response = await axios.post(`https://blogmine-22pp.onrender.com/auth/login`, formData, { withCredentials: true })
-            console.log(response.data);
-            await getUser()
+            const response = await axios.post(`${API}/auth/login`, formData, { withCredentials: true }, { headers: { 'Content-Type': 'application/json' } })
+            // console.log(response.data);
+            // await getUser()
             toast.success('Logged in successfully!');
         } catch (err) {
             console.log(err);

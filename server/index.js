@@ -13,8 +13,10 @@ connectDb()
 const app = express()
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://blog-mine-three.vercel.app', 'https://blog-mine-90v7i5g8e-suraj-rajbhars-projects.vercel.app', 'https://blog-mine-90v7i5g8e-suraj-rajbhars-projects.vercel.app'],
-    credentials: true
+    origin: ['http://localhost:5173', 'https://blog-mine-three.vercel.app', 'https://blog-mine-90v7i5g8e-suraj-rajbhars-projects.vercel.app'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
