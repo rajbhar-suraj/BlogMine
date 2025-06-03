@@ -24,7 +24,7 @@ const AuthForm = ({ formControls }) => {
 
         } else {
 
-            await loginUser({ formData })
+            await loginUser( formData )
             if (user) {
                 navigate('/auth/blog/dashboard')
             }
