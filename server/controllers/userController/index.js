@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
         const hashed = await bcrypt.hash(password, 10)
         const user = new User({ name, email, password: hashed })
         await user.save()
-        res.status(201).json({ message: 'User registered successfully', user: { id: user._id, name: user.name, email: user.email } })
+        res.status(200).json({ message: 'User registered successfully', user: { id: user._id, name: user.name, email: user.email } })
     } catch (error) {
         res.status(400).json({ message: 'not registered...' })
     }
@@ -19,6 +19,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body
+
     try {
         const user = await User.findOne({ email })
         if (!user) return res.status(400).json({ message: 'User not found' })
@@ -29,9 +30,9 @@ const loginUser = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
         res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None' })
 
-        res.status(201).json({ message: 'User loggedin successfully', user: { id: user._id, name: user.name, email: user.email } })
+        res.status(200).json({ message: 'User loggedin successfully', user: { id: user._id, name: user.name, email: user.email } })
     } catch (error) {
-        res.status(400).json({ message: 'Server 201 error', error: error })
+        res.status(400).json({ message: 'Server error', error: error })
     }
 }
 
@@ -74,17 +75,6 @@ const middleWare = async (req, res, next) => {
     }
 }
 
-// const logoutUser = async (req,res) => {
-//     res.clearCookie('token',{
-//         httpOnly:true,
-//         secure:true,
-//         sameSite:'None'
-//     }).status(200).json({message:'logout successfully'})
-// }
-// module.exports = { registerUser, loginUser,middleWare,logoutUser }
-//         res.status(400).json({message:'token issue',error:{error}})
-//     }
-// }
 
 const logoutUser = async (req, res) => {
     res.clearCookie('token', {

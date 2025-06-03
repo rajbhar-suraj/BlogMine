@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/userContext/AuthContext';
 
 
 const AuthForm = ({ formControls }) => {
 
     const [formData, setFormData] = useState({})
-
+    const location = useLocation()
     const { registerUser, loginUser, user } = useAuthContext()
     const isRegisterPage = location.pathname === '/auth/register'
     const navigate = useNavigate()

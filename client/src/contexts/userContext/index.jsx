@@ -57,9 +57,11 @@ export const AuthProvider = ({ children }) => {
     const loginUser = async ({ formData }) => {
         try {
             const response = await axios.post(`${API}/auth/login`, formData, { withCredentials: true })
+            console.log(response.data);
             await getUser()
             toast.success('Logged in successfully!');
         } catch (err) {
+          console.log(err);
           toast.error(err.response?.data?.message || 'Login failed');
         }
     }
