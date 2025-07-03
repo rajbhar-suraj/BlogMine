@@ -31,11 +31,14 @@ app.use('/auth/blog', BlogRoute)
 app.use('/auth/blog/comment', ReportRoute)
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/dist"))); // for Vite
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-    });
-  }
+  const path = require('path');
+  app.use(express.static(path.join(__dirname, "../client/dist"))); // Serve Vite build
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+}
+
 
 const PORT = process.env.PORT || 5000
 
